@@ -1,0 +1,33 @@
+[package]
+name = "opencode-go-usage"
+version = "0.2.0"
+description = "Menu bar meter for OpenCode Go plan usage"
+authors = ["you"]
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "opencode_go_usage_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png", "macos-private-api"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+reqwest = { version = "0.13", features = ["json"] }
+tokio = { version = "1", features = ["time", "sync"] }
+rusqlite = { version = "0.40.2", features = ["bundled"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-app-kit = { version = "0.3", features = ["NSApplication"] }
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

@@ -1,0 +1,25 @@
+{
+  "name": "opencode-go-usage",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "description": "macOS menu bar meter for OpenCode Go plan usage",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "icons": "node scripts/make-icons.mjs",
+    "bump": "node scripts/bump-version.mjs",
+    "tauri": "tauri",
+    "app": "tauri dev",
+    "app:build": "tauri build"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.12.3"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.4"
+  }
+}
