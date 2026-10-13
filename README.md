@@ -48,8 +48,9 @@ runtime dependencies in the UI, ~6 MB on disk.
   filter, so you can see why a big token count sits against a small percentage.
 - **Multiple workspaces.** A list of keys with names, one active at a time;
   percentages from different limits are never added together.
-- **Launch at login** as a proper macOS login item (name and icon in System
-  Settings, not an anonymous background agent).
+- **Launch at login** as a proper macOS login item — registered through
+  ServiceManagement, so System Settings lists the app's name and icon rather than
+  an anonymous background agent. Items created by earlier versions are migrated.
 
 ## Install
 

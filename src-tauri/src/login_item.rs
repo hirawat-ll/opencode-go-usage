@@ -98,11 +98,12 @@ pub fn migrate_legacy() {
         if !path.exists() {
             return;
         }
-        // The plist existing *is* the old preference: the user had it on.
-        if std::fs::remove_file(&path).is_err() {
+        // Register first: if macOS refuses, the working LaunchAgent stays put
+        // rather than the user silently losing their login item.
+        if service::register().is_err() {
             return;
         }
-        let _ = service::register();
+        let _ = std::fs::remove_file(&path);
     }
 }
 

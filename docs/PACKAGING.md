@@ -167,19 +167,25 @@ unsigned DMG for internal use.
 
 1. Drag `OpenCode Go Usage.app` to `/Applications`.
 2. Launch it, click the menu bar icon, paste your Go API key.
-3. To start it with the Mac: **Settings → Launch at login** inside the app. It
-   registers a LaunchAgent at `~/Library/LaunchAgents/ai.opencode.go-usage.plist`
-   pointing at the app, and unregisters it when you switch the row off.
+3. To start it with the Mac: **Settings → Launch at login** inside the app. On
+   macOS 13+ this registers the app with ServiceManagement, so System Settings →
+   Login Items lists it under the app's own name and icon. Older systems get a
+   LaunchAgent at `~/Library/LaunchAgents/OpenCode Go Usage.plist` instead.
 
    Launch the app from `/Applications` *before* enabling this: the login item
-   records the path the app was running from, so enabling it while running from a
-   build directory would register that path.
+   records the bundle it was registered from, so enabling it while running out of
+   a build directory would register that path.
+
+   An item enabled by an earlier version (created as a LaunchAgent) is migrated
+   to ServiceManagement on first launch of this one, which is what makes System
+   Settings show the app rather than an anonymous background agent.
 
 ## Uninstalling
 
 ```sh
-# turn off "Launch at login" in the app first, or remove the agent by hand:
-rm -f ~/Library/LaunchAgents/ai.opencode.go-usage.plist
+# turn off "Launch at login" in the app first — it removes the login item.
+# On macOS 12 only, the fallback launch agent is a file:
+rm -f ~/Library/LaunchAgents/OpenCode\ Go\ Usage.plist
 rm -rf "/Applications/OpenCode Go Usage.app"
 rm -rf ~/Library/Application\ Support/ai.opencode.go-usage
 ```
@@ -192,8 +198,8 @@ The Application Support path holds the API keys, settings and sample histories.
   interval.
 - **Read access** to `~/.local/share/opencode/opencode.db` (or
   `$XDG_DATA_HOME/opencode/`) for the details view. It is opened read-only.
-- **Write access** to `~/Library/LaunchAgents/` only if you switch on *Launch at
-  login*.
+- **Write access** to the login item store, and (macOS 12 only) to
+  `~/Library/LaunchAgents/`, if you switch on *Launch at login*.
 - It never asks for Screen Recording, Accessibility, or any other permission,
   and it does not phone anywhere except `opencode.ai`.
 
