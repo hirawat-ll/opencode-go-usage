@@ -160,6 +160,7 @@ cargo test             # 38 tests: endpoint parsing, config migration, state mac
 | `docs/PACKAGING.md` | signing, notarizing, distributing, uninstalling |
 | `ROADMAP.md` | what comes next, and what deliberately does not |
 | `DESIGN.md` | why the panel looks the way it does |
+| `AGENTS.md` | working notes: rules, verification recipes, known traps |
 
 ## Notes
 
